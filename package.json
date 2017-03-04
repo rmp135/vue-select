@@ -15,7 +15,7 @@
     "build": "webpack",
     "test": "karma start"
   },
-  "devDpendencies": {
+  "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
     "babel-preset-env": "^1.2.0",
