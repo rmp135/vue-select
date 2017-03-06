@@ -1,7 +1,7 @@
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('./webpack.config.js')
 // delete webpackConfig.output.libraryTarget;
 
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
