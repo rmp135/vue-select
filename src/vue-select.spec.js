@@ -117,5 +117,17 @@ describe('vue-select', () => {
         expect(vm.focused).toBe(false)
       })
     })
+    describe('onMouseDown', () => {
+      it('should set the selectedIndex to 0', () => {
+        vm.selectedIndex = 1
+        vm.onClick()
+        expect(vm.selectedIndex).toBe(0)
+      })
+      it('should set the text to the selected item', () => {
+        vm.text = 'an item'
+        vm.onClick('a different item')
+        expect(vm.text).toBe('a different item')
+      })
+    })
   })
 })

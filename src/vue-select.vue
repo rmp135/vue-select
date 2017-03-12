@@ -2,7 +2,7 @@
   .vue-select
     input(v-model="text", @keydown.down="onDown", @keydown.up="onUp", @keydown.tab.enter="onTab", @focus="onFocus", @blur="onBlur")
     .suggestions(ref="suggestions" v-show="focused")
-      .suggestion(v-for="suggestion, index in filteredSuggestions", :class="{ selected: index == selectedIndex }") {{suggestion}}
+      .suggestion(v-for="suggestion, index in filteredSuggestions", :class="{ selected: index == selectedIndex }", @mousedown="onClick(suggestion)") {{suggestion}}
 </template>
 <style lang="scss">
   .vue-select {
@@ -78,6 +78,10 @@
       onBlur (e) {
         this.$refs.suggestions.scrollTop = 0
         this.focused = false
+      },
+      onClick (selected) {
+        this.selectedIndex = 0
+        this.text = selected
       }
     }
   }
