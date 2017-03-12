@@ -6,6 +6,7 @@
 </template>
 <style lang="scss">
   .vue-select {
+    cursor: default;
     width: 200px;
     input {
       width: inherit;
@@ -13,6 +14,7 @@
     .suggestions {
       width: inherit;
       position: absolute;
+      overflow-y: auto;
     }
   }
 </style>
