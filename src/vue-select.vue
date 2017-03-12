@@ -21,6 +21,11 @@
 <script>
   export default {
     props: {
+      value: {
+        type: String,
+        required: false,
+        default: ''
+      },
       suggestions: {
         type: Array,
         required: true
@@ -33,6 +38,9 @@
         focused: false
       }
     },
+    mounted () {
+      this.text = this.value
+    },
     computed: {
       filteredSuggestions () {
         return this.suggestions.filter(s => s.toLowerCase().includes(this.text.toLowerCase()))
@@ -40,7 +48,7 @@
     },
     watch: {
       text (value) {
-        this.$emit('change', value)
+        this.$emit('input', value)
       }
     },
     methods: {

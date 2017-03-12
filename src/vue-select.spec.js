@@ -14,6 +14,14 @@ describe('vue-select', () => {
     it('should pass suggestions prop', () => {
       expect(vm.suggestions).toEqual(['item1', 'item2', 'item3'])
     })
+    it('should set the text to the value prop', () => {
+      vm = new Ctor({ propsData: { suggestions: [], value: 'something' } }).$mount()
+      expect(vm.text).toBe('something')
+    })
+    it('should set the text to an empty string if the value prop is not provided', () => {
+      vm = new Ctor({ propsData: { suggestions: [] } }).$mount()
+      expect(vm.text).toBe('')
+    })
   })
   describe('computed', () => {
     describe('filteredSuggestions', () => {
@@ -38,12 +46,12 @@ describe('vue-select', () => {
     })
   })
   describe('watch', () => {
-    it('should send an \'change\' event when changed', (done) => {
+    it('should send an \'input\' event when changed', (done) => {
       const spy = jasmine.createSpy()
       vm.$emit = spy
       vm.text = 'new text'
       Vue.nextTick(() => {
-        expect(spy).toHaveBeenCalledWith('change', 'new text')
+        expect(spy).toHaveBeenCalledWith('input', 'new text')
         done()
       })
     })
