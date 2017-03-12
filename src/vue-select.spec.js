@@ -22,6 +22,12 @@ describe('vue-select', () => {
       vm = new Ctor({ propsData: { suggestions: [] } }).$mount()
       expect(vm.text).toBe('')
     })
+    it('should not trigger an event on initialisation', () => {
+      vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item3'], value: 'something' } })
+      vm.$emit = jasmine.createSpy()
+      vm.$mount()
+      expect(vm.$emit).not.toHaveBeenCalled()
+    })
   })
   describe('computed', () => {
     describe('filteredSuggestions', () => {
@@ -46,9 +52,10 @@ describe('vue-select', () => {
     })
   })
   describe('watch', () => {
-    it('should send an \'input\' event when changed', (done) => {
+    it('should send an \'input\' event when changed after initialisation', (done) => {
       const spy = jasmine.createSpy()
       vm.$emit = spy
+      vm.hasInitialised = true
       vm.text = 'new text'
       Vue.nextTick(() => {
         expect(spy).toHaveBeenCalledWith('input', 'new text')

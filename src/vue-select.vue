@@ -35,7 +35,8 @@
       return {
         selectedIndex: 0,
         text: '',
-        focused: false
+        focused: false,
+        hasInitialised: false
       }
     },
     mounted () {
@@ -48,7 +49,10 @@
     },
     watch: {
       text (value) {
-        this.$emit('input', value)
+        if (this.hasInitialised) {
+          this.$emit('input', value)
+        }
+        this.hasInitialised = true
       }
     },
     methods: {
