@@ -1,9 +1,7 @@
-const { name } = require('./package.json')
-
 module.exports = {
-  entry: `./src/${name}.vue`,
+  entry: `./src/vue-select.vue`,
   output: {
-    filename: `dist/${name}.js`,
+    filename: `dist/vue-select.js`,
     libraryTarget: 'umd',
     library: 'VueSelect'
   },

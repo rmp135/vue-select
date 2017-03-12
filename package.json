@@ -1,11 +1,11 @@
 {
-  "name": "vue-select",
+  "name": "@rmp135/vue-select",
   "version": "0.0.3",
   "license": "MIT",
   "main": "dist/vue-select.js",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/rmp135/vue-select"
   },
   "author": {
     "name": "Ryan Poole",
