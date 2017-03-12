@@ -2,6 +2,8 @@
 
 ## Selecting made simple
 
+[![Build Status](https://travis-ci.org/rmp135/vue-select.svg?branch=master)](https://travis-ci.org/rmp135/vue-select)
+
 Provides a simple Vue component for providing suggestions from a dropdown.
 
 ### [Demo](https://rmp135.github.io/vue-select/)
