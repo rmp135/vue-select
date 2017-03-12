@@ -44,57 +44,50 @@ describe('vue-select', () => {
     })
   })
   describe('methods', () => {
-    describe('onKeyDown', () => {
-      it('should set the selectedIndex to max if the current index is too high', () => {
-        jasmine.clock().install()
-        vm.selectedIndex = 3
-        vm.onKeyDown()
-        expect(vm.selectedIndex).toBe(3)
-        jasmine.clock().tick(0)
-        expect(vm.selectedIndex).toBe(2)
-        jasmine.clock().uninstall()
-      })
-      it('should set the selectedIndex to 0 if the current index is too low', () => {
-        jasmine.clock().install()
-        vm.selectedIndex = -1
-        vm.onKeyDown()
-        expect(vm.selectedIndex).toBe(-1)
-        jasmine.clock().tick(0)
-        expect(vm.selectedIndex).toBe(0)
-        jasmine.clock().uninstall()
-      })
-      it('should not change the selectedIndex if the current index is in range', () => {
-        jasmine.clock().install()
-        vm.selectedIndex = 1
-        vm.onKeyDown()
-        expect(vm.selectedIndex).toBe(1)
-        jasmine.clock().tick(0)
-        expect(vm.selectedIndex).toBe(1)
-        jasmine.clock().uninstall()
-      })
-    })
     describe('onDown', () => {
       it('should do nothing if the selectedIndex is at the max value', () => {
+        vm.scroll = jasmine.createSpy()
         vm.selectedIndex = 2
         vm.onDown()
         expect(vm.selectedIndex).toBe(2)
+        expect(vm.scroll).not.toHaveBeenCalled()
+      })
+      it('should do nothing if the selectedIndex is greater the max value', () => {
+        vm.scroll = jasmine.createSpy()
+        vm.selectedIndex = 3
+        vm.onDown()
+        expect(vm.selectedIndex).toBe(2)
+        expect(vm.scroll).not.toHaveBeenCalled()
       })
       it('should increase the selectedIndex if it can be increased', () => {
+        vm.scroll = jasmine.createSpy()
         vm.selectedIndex = 1
         vm.onDown()
         expect(vm.selectedIndex).toBe(2)
+        expect(vm.scroll).toHaveBeenCalled()
       })
     })
     describe('onUp', () => {
       it('should do nothing if the selectedIndex is at the min value', () => {
+        vm.scroll = jasmine.createSpy()
         vm.selectedIndex = 0
         vm.onUp()
         expect(vm.selectedIndex).toBe(0)
+        expect(vm.scroll).not.toHaveBeenCalled()
+      })
+      it('should do nothing if the selectedIndex is less than the min value', () => {
+        vm.scroll = jasmine.createSpy()
+        vm.selectedIndex = -1
+        vm.onUp()
+        expect(vm.selectedIndex).toBe(0)
+        expect(vm.scroll).not.toHaveBeenCalled()
       })
       it('should decrease the selectedIndex if it can be decreased', () => {
+        vm.scroll = jasmine.createSpy()
         vm.selectedIndex = 1
         vm.onUp()
         expect(vm.selectedIndex).toBe(0)
+        expect(vm.scroll).toHaveBeenCalled()
       })
     })
     describe('onTab', () => {
@@ -118,6 +111,7 @@ describe('vue-select', () => {
     })
     describe('onBlur', () => {
       it('should set the \'focused\' property to false', () => {
+        vm.$mount()
         vm.focused = true
         vm.onBlur()
         expect(vm.focused).toBe(false)
