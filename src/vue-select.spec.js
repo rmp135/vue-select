@@ -76,14 +76,26 @@ describe('vue-select', () => {
     })
   })
   describe('watch', () => {
-    it('should send an \'input\' event when changed after initialisation', (done) => {
-      const spy = jasmine.createSpy()
-      vm.$emit = spy
-      vm.hasInitialised = true
-      vm.text = 'new text'
-      Vue.nextTick(() => {
-        expect(spy).toHaveBeenCalledWith('input', 'new text')
-        done()
+    describe('test', () => {
+      it('should send an \'input\' event when changed after initialisation', (done) => {
+        const spy = jasmine.createSpy()
+        vm.$emit = spy
+        vm.hasInitialised = true
+        vm.text = 'new text'
+        Vue.nextTick(() => {
+          expect(spy).toHaveBeenCalledWith('input', 'new text')
+          done()
+        })
+      })
+    })
+    describe('suggestions', () => {
+      it('should set the selectedIndex back to 0 when changed', (done) => {
+        vm.selectedIndex = 1
+        vm.suggestions = []
+        Vue.nextTick(() => {
+          expect(vm.selectedIndex).toBe(0)
+          done()
+        })
       })
     })
   })

@@ -56,6 +56,9 @@
           this.$emit('input', value)
         }
         this.hasInitialised = true
+      },
+      suggestions () {
+        this.selectedIndex = 0
       }
     },
     methods: {
