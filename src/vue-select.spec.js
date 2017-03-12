@@ -30,6 +30,11 @@ describe('vue-select', () => {
         vm.text = 'qwer'
         expect(vm.filteredSuggestions).toEqual([])
       })
+      it('should filter case insensitive', () => {
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'ITEM2', 'iTEm3', 'something else'] } })
+        vm.text = 'ITEM'
+        expect(vm.filteredSuggestions).toEqual(['item1', 'ITEM2', 'iTEm3'])
+      })
     })
   })
   describe('watch', () => {

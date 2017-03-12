@@ -33,7 +33,7 @@
     },
     computed: {
       filteredSuggestions () {
-        return this.suggestions.filter(s => s.includes(this.text))
+        return this.suggestions.filter(s => s.toLowerCase().includes(this.text.toLowerCase()))
       }
     },
     watch: {
