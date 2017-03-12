@@ -152,6 +152,11 @@ describe('vue-select', () => {
         vm.onFocus()
         expect(vm.focused).toBe(true)
       })
+      it('should set selectedIndex back to 0', () => {
+        vm.focused = 1
+        vm.onFocus()
+        expect(vm.selectedIndex).toBe(0)
+      })
     })
     describe('onBlur', () => {
       it('should set the \'focused\' property to false', () => {
@@ -161,11 +166,11 @@ describe('vue-select', () => {
         expect(vm.focused).toBe(false)
       })
     })
-    describe('onMouseDown', () => {
-      it('should set the selectedIndex to 0', () => {
+    describe('onClick', () => {
+      it('should set the selectedIndex to the item that was selected', () => {
         vm.selectedIndex = 1
-        vm.onClick()
-        expect(vm.selectedIndex).toBe(0)
+        vm.onClick('selected', 2)
+        expect(vm.selectedIndex).toBe(2)
       })
       it('should set the text to the selected item', () => {
         vm.text = 'an item'
