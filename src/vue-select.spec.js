@@ -50,6 +50,30 @@ describe('vue-select', () => {
         expect(vm.filteredSuggestions).toEqual(['item1', 'ITEM2', 'iTEm3'])
       })
     })
+    describe('isHidden', () => {
+      it('should be true when the component is not focused', () => {
+        vm.focused = false
+        expect(vm.isHidden).toBe(true)
+      })
+      it('should be false when the component is focused and the filteredSuggestions is greater than 1', () => {
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item3'] } })
+        vm.text = ''
+        vm.focused = true
+        expect(vm.isHidden).toBe(false)
+      })
+      it('should be false when the component is focused and the filteredSuggestions is 1 and not equal to the suggestion', () => {
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item33'] } })
+        vm.text = 'item3'
+        vm.focused = true
+        expect(vm.isHidden).toBe(false)
+      })
+      it('should be true when the component is focused and the filteredSuggestions is 1 and equal to the suggestion', () => {
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item33'] } })
+        vm.text = 'item33'
+        vm.focused = true
+        expect(vm.isHidden).toBe(true)
+      })
+    })
   })
   describe('watch', () => {
     it('should send an \'input\' event when changed after initialisation', (done) => {

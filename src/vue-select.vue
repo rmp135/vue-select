@@ -1,7 +1,7 @@
 <template lang="pug">
   .vue-select
     input(v-model="text", @keydown.down="onDown", @keydown.up="onUp", @keydown.tab.enter="onTab", @focus="onFocus", @blur="onBlur")
-    .suggestions(ref="suggestions" v-show="focused")
+    .suggestions(ref="suggestions" v-show="!isHidden")
       .suggestion(v-for="suggestion, index in filteredSuggestions", :class="{ selected: index == selectedIndex }", @mousedown.prevent="onClick(suggestion)") {{suggestion}}
 </template>
 <style lang="scss">
@@ -45,6 +45,9 @@
     computed: {
       filteredSuggestions () {
         return this.suggestions.filter(s => s.toLowerCase().includes(this.text.toLowerCase()))
+      },
+      isHidden () {
+        return !this.focused || this.filteredSuggestions.length === 1 && this.filteredSuggestions[this.filteredSuggestions.length - 1] === this.text
       }
     },
     watch: {
