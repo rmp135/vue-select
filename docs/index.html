@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/bulma/css/bulma.css"></style>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="../dist/vue-select.js"></script>
+    <style>
+      .selector {
+        width: 300px !important;
+      }
+      .selector input {
+        height: 30px;
+        padding: 15px;
+      }
+      .selector .suggestions {
+        z-index: 1;
+        overflow-y: auto;
+        max-height: 300px;
+        background-color: white;
+        border-left: 1px solid hsl(171, 100%, 41%);
+        border-right: 1px solid hsl(171, 100%, 41%);
+        border-bottom: 1px solid hsl(171, 100%, 41%);
+      }
+      .selector .suggestion {
+        padding: 5px;
+      }
+      .selector .suggestion:hover {
+        background-color: hsl(171, 100%, 41%);
+        color: white;
+      }
+      .selector .selected {
+        background-color: hsl(171, 100%, 41%);
+        color: white;
+      }
+    </style>
+    <title>VueSelect</title>
+  </head>
+  <body>
+    <div id="app">
+      <section class="hero is-dark">
+        <div class="hero-head">
+          <div class="nav">
+            <div class="container">
+              <div class="nav-left">
+                <div class="nav-item">
+                  <h1 class="title">VueSelect</h1>
+                </div>
+              </div>
+              <div class="nav-right">
+                <div class="nav-item">
+                  <a href="https://github.com/rmp135/vue-select">GitHub</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-body has-text-centered">
+          <div class="container">
+            <h1 class="subtitle">Selecting made simple</h1>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <h1 class="subtitle">Type in the box below to see a list of suggestions.</h1>
+          <div class="columns">
+            <div class="column">
+              <vue-select class="selector" :suggestions="suggestions" v-model="styledValue" />
+            </div>
+            <div class="column">
+              <div class="content">
+                Value chosen for this select : {{ styledValue }}
+              </div>
+            </div>
+          </div>
+          <div class="message is-info">
+            <div class="message-header">
+              Keyboard Shortcuts
+            </div>
+            <div class="message-body">
+              <p>Use up and down to navigate the list, Enter and Tab to select a line</p>
+              <p>You can also click on an item in the list to select it.</p>
+            </div>
+          </div>
+          <div class="message is-danger">
+            <div class="message-header">
+              Default Styling
+            </div>
+            <div class="message-body">
+              <p>By default, vue-select comes with <strong>zero</strong> styling.</p>
+              <p>See below for which classes to override to get the best settings.</p>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <vue-select :suggestions="suggestions" v-model="unStyledValue" />
+            </div>
+            <div class="column">
+              <div class="content">
+               <p>Value chosen for this select : {{ unStyledValue }}</p>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <h3 class="title">Props</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Purpose</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>suggestions</td>
+                <td>String[]</td>
+                <td>The list of suggestions that should appear in the dropdown.</td>
+              </tr>
+              <tr>
+                <td>value</td>
+                <td>String</td>
+                <td>Sets the initial value.</td>
+                <td>False (defaults to an empty string)</td>
+              </tr>
+              <tr>
+                <td>placeholder</td>
+                <td>String</td>
+                <td>Sets the placeholder attribute of the input.</td>
+                <td>False (defaults to an empty string)</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3 class="title">Events</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Triggered</th>
+              </tr>
+              <tr>
+                <td>input</td>
+                <td>String</td>
+                <td>When the value in the select changes, either by typing or selection.</td>
+              </tr>
+            </thead>
+          </table>
+          <div class="message is-info">
+            <div class="message-header">v-model</div>
+            <div class="message-body">
+              <p>vue-select supports using the v-model syntax. The values will automagically by synced to the parent.</p>
+            </div>
+          </div>
+          <h3 class="title">Style</h3>
+          <div class="content">
+            <p>The following styles can be overridden to match the style of your page.</p>
+          </div>
+          <h4 class="title">.suggestions</h4>
+          <div class="content">
+            <p>The entire list of suggestions.</p>
+          </div>
+          <div class="message is-info">
+            <div class="message-body">
+              <p>Place a max-height to limit the height of the suggestion box.</p>
+            </div>
+          </div>
+          <h4 class="title">.suggestions .suggestion</h4>
+          <div class="content">
+            <p>An individual suggestion.</p>
+          </div>
+          <div class="message is-info">
+            <div class="message-body">
+              <p>Try the :hover pseudo-attribute to show which suggestion the user has their cursor over.</p>
+            </div>
+          </div>
+          <h4 class="title">.suggestions .suggestion.selected</h4>
+          <div class="content">
+            <p>The suggestion that the user currently has selected.</p>
+          </div>
+          <div class="message is-info">
+            <div class="message-body">
+              <p>Place a background-color to show which suggestion the user currently has highlighted.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="container">
+          <div class="content has-text-centered">
+            <p>Made by <a href="https://twitter.com/rmp135">Ryan</a> with <a href="https://vuejs.org">Vue.js</a> and <a href="http://bulma.io">Bulma.</a></p>
+            <p>If after reading all that you have semantic satiation over the word <i>suggestion</i>, I don't blame you.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        suggestions: ['Afghanistan', 'Åland Islands', 'Albania', 'Algeria', 'American Samoa', 'AndorrA', 'Angola', 'Anguilla', 'Antarctica', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Bouvet Island', 'Brazil', 'British Indian Ocean Territory', 'Brunei Darussalam', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Cayman Islands', 'Central African Republic', 'Chad', 'Chile', 'China', 'Christmas Island', 'Cocos (Keeling) Islands', 'Colombia', 'Comoros', 'Congo', 'Congo, The Democratic Republic of the', 'Cook Islands', 'Costa Rica', 'Cote D\'Ivoire', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Falkland Islands (Malvinas)', 'Faroe Islands', 'Fiji', 'Finland', 'France', 'French Guiana', 'French Polynesia', 'French Southern Territories', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guadeloupe', 'Guam', 'Guatemala', 'Guernsey', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Heard Island and Mcdonald Islands', 'Holy See (Vatican City State)', 'Honduras', 'Hong Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran, Islamic Republic Of', 'Iraq', 'Ireland', 'Isle of Man', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jersey', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Korea, Democratic People\'s Republic of', 'Korea, Republic of', 'Kuwait', 'Kyrgyzstan', 'Lao People\'s Democratic Republic', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libyan Arab Jamahiriya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macao', 'Macedonia, The Former Yugoslav Republic of', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Martinique', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia, Federated States of', 'Moldova, Republic of', 'Monaco', 'Mongolia', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'Netherlands Antilles', 'New Caledonia', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norfolk Island', 'Northern Mariana Islands', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestinian Territory, Occupied', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Pitcairn', 'Poland', 'Portugal', 'Puerto Rico', 'Qatar', 'Reunion', 'Romania', 'Russian Federation', 'RWANDA', 'Saint Helena', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Pierre and Miquelon', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia and Montenegro', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Georgia and the South Sandwich Islands', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Svalbard and Jan Mayen', 'Swaziland', 'Sweden', 'Switzerland', 'Syrian Arab Republic', 'Taiwan, Province of China', 'Tajikistan', 'Tanzania, United Republic of', 'Thailand', 'Timor-Leste', 'Togo', 'Tokelau', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks and Caicos Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'United States Minor Outlying Islands', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Viet Nam', 'Virgin Islands, British', 'Virgin Islands, U.S.', 'Wallis and Futuna', 'Western Sahara', 'Yemen', 'Zambia', 'Zimbabwe'],
+        styledValue: '',
+        unStyledValue: 'Fra'
+      },
+      components: { 
+        VueSelect
+      }
+    })
+  </script>
+</html>
