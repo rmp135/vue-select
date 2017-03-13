@@ -8,7 +8,7 @@ describe('vue-select', () => {
   let Ctor, vm
   beforeEach(() => {
     Ctor = Vue.extend(template)
-    vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item3'] } })
+    vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item3'] } }).$mount()
   })
   describe('construction', () => {
     it('should pass suggestions prop', () => {
@@ -32,7 +32,7 @@ describe('vue-select', () => {
   describe('computed', () => {
     describe('filteredSuggestions', () => {
       it('should return suggestions filtered by \'text\' value', () => {
-        vm = new Ctor({ propsData: { suggestions: ['jam', 'ham', 'jar'] } })
+        vm = new Ctor({ propsData: { suggestions: ['jam', 'ham', 'jar'] } }).$mount()
         vm.text = 'am'
         expect(vm.filteredSuggestions).toEqual(['jam', 'ham'])
       })
@@ -45,7 +45,7 @@ describe('vue-select', () => {
         expect(vm.filteredSuggestions).toEqual([])
       })
       it('should filter case insensitive', () => {
-        vm = new Ctor({ propsData: { suggestions: ['item1', 'ITEM2', 'iTEm3', 'something else'] } })
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'ITEM2', 'iTEm3', 'something else'] } }).$mount()
         vm.text = 'ITEM'
         expect(vm.filteredSuggestions).toEqual(['item1', 'ITEM2', 'iTEm3'])
       })
@@ -56,19 +56,19 @@ describe('vue-select', () => {
         expect(vm.isHidden).toBe(true)
       })
       it('should be false when the component is focused and the filteredSuggestions is greater than 1', () => {
-        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item3'] } })
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item3'] } }).$mount()
         vm.text = ''
         vm.focused = true
         expect(vm.isHidden).toBe(false)
       })
       it('should be false when the component is focused and the filteredSuggestions is 1 and not equal to the suggestion', () => {
-        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item33'] } })
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item33'] } }).$mount()
         vm.text = 'item3'
         vm.focused = true
         expect(vm.isHidden).toBe(false)
       })
       it('should be true when the component is focused and the filteredSuggestions is 1 and equal to the suggestion', () => {
-        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item33'] } })
+        vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item33'] } }).$mount()
         vm.text = 'item33'
         vm.focused = true
         expect(vm.isHidden).toBe(true)
@@ -91,7 +91,7 @@ describe('vue-select', () => {
     describe('suggestions', () => {
       it('should set the selectedIndex back to 0 when changed', (done) => {
         vm.selectedIndex = 1
-        vm.suggestions = []
+        vm.suggestions = ['item', 'item2']
         Vue.nextTick(() => {
           expect(vm.selectedIndex).toBe(0)
           done()

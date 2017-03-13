@@ -1,9 +1,3 @@
-<template lang="pug">
-  .vue-select
-    input(v-model="text", @keydown.down="onDown", @keydown.up="onUp", @keydown.tab.enter="onTab", @focus="onFocus", @blur="onBlur")
-    .suggestions(ref="suggestions" v-show="!isHidden")
-      .suggestion(v-for="suggestion, index in filteredSuggestions", :class="{ selected: index == selectedIndex }", @mousedown.prevent="onClick(suggestion, index)") {{suggestion}}
-</template>
 <style lang="scss">
   .vue-select {
     cursor: default;
@@ -18,6 +12,12 @@
     }
   }
 </style>
+<template lang="pug">
+  .vue-select
+    input(v-model="text", @keydown.down="onDown", @keydown.up="onUp", @keydown.tab.enter="onTab", @focus="onFocus", @blur="onBlur")
+    .suggestions(ref="suggestions" v-show="!isHidden")
+      .suggestion(v-for="suggestion, index in filteredSuggestions", :class="{ selected: index == selectedIndex }", @mousedown.prevent="onClick(suggestion, index)") {{suggestion}}
+</template>
 <script>
   export default {
     props: {
@@ -59,16 +59,24 @@
       },
       suggestions () {
         this.selectedIndex = 0
+      },
+      filteredSuggestions () {
+        this.selectedIndex = 0
+        this.scroll()
       }
     },
     methods: {
       scroll () {
-        const selectedEl = this.$refs.suggestions.children[this.selectedIndex]
-        if (selectedEl.offsetTop < this.$refs.suggestions.scrollTop) {
-          this.$refs.suggestions.scrollTop = selectedEl.offsetTop
-        } else if (selectedEl.offsetTop + selectedEl.clientHeight > this.$refs.suggestions.scrollTop + this.$refs.suggestions.clientHeight) {
-          this.$refs.suggestions.scrollTop = selectedEl.offsetTop + selectedEl.clientHeight - this.$refs.suggestions.clientHeight
-        }
+        this.$nextTick(() => {
+          const selectedEl = this.$refs.suggestions.children[this.selectedIndex]
+          if (selectedEl == null) return
+          if (this.filteredSuggestions.length === 0) return
+          if (selectedEl.offsetTop < this.$refs.suggestions.scrollTop) {
+            this.$refs.suggestions.scrollTop = selectedEl.offsetTop
+          } else if (selectedEl.offsetTop + selectedEl.clientHeight > this.$refs.suggestions.scrollTop + this.$refs.suggestions.clientHeight) {
+            this.$refs.suggestions.scrollTop = selectedEl.offsetTop + selectedEl.clientHeight - this.$refs.suggestions.clientHeight
+          }
+        })
       },
       onDown (e) {
         if (this.selectedIndex >= this.filteredSuggestions.length) {
@@ -89,15 +97,14 @@
       onTab (e) {
         if (this.filteredSuggestions.length > 0) {
           this.text = this.filteredSuggestions[this.selectedIndex]
-          this.selectedIndex = 0
         }
       },
       onFocus (e) {
         this.selectedIndex = 0
+        this.scroll()
         this.focused = true
       },
       onBlur (e) {
-        this.$refs.suggestions.scrollTop = 0
         this.focused = false
       },
       onClick (selected, index) {
