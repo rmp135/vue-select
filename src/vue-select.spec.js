@@ -22,6 +22,17 @@ describe('vue-select', () => {
       vm = new Ctor({ propsData: { suggestions: [] } }).$mount()
       expect(vm.text).toBe('')
     })
+    it('should set hasInitialised to true if an empty value is sent through', () => {
+      vm = new Ctor({ propsData: { suggestions: [], value: '' } }).$mount()
+      expect(vm.hasInitialised).toBe(true)
+    })
+    it('should set hasInitialised to true if a none empty value is sent', (done) => {
+      vm = new Ctor({ propsData: { suggestions: [], value: 'something' } }).$mount()
+      Vue.nextTick(() => {
+        expect(vm.hasInitialised).toBe(true)
+        done()
+      })
+    })
     it('should not trigger an event on initialisation', () => {
       vm = new Ctor({ propsData: { suggestions: ['item1', 'item2', 'item3'], value: 'something' } })
       vm.$emit = jasmine.createSpy()

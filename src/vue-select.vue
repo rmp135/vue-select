@@ -45,6 +45,9 @@
       }
     },
     mounted () {
+      if (this.value === '') {
+        this.hasInitialised = true
+      }
       this.text = this.value
     },
     computed: {
