@@ -28,6 +28,11 @@ describe('vue-select', () => {
       vm.$mount()
       expect(vm.$emit).not.toHaveBeenCalled()
     })
+    it('should populate the placeholder attribute when given', () => {
+      vm = new Ctor({ propsData: { suggestions: [], placeholder: 'insert coin' } }).$mount()
+      expect(vm.$el.querySelector('input').placeholder).toBe('insert coin')
+    })
+    it('should populate the placeholder as an empty string when not given')
   })
   describe('computed', () => {
     describe('filteredSuggestions', () => {

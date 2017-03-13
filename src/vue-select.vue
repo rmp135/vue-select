@@ -14,7 +14,7 @@
 </style>
 <template lang="pug">
   .vue-select
-    input(v-model="text", @keydown.down="onDown", @keydown.up="onUp", @keydown.tab.enter="onTab", @focus="onFocus", @blur="onBlur")
+    input(:placeholder="placeholder", v-model="text", @keydown.down="onDown", @keydown.up="onUp", @keydown.tab.enter="onTab", @focus="onFocus", @blur="onBlur")
     .suggestions(ref="suggestions" v-show="!isHidden")
       .suggestion(v-for="suggestion, index in filteredSuggestions", :class="{ selected: index == selectedIndex }", @mousedown.prevent="onClick(suggestion, index)") {{suggestion}}
 </template>
@@ -29,6 +29,11 @@
       suggestions: {
         type: Array,
         required: true
+      },
+      placeholder: {
+        type: String,
+        required: false,
+        default: ''
       }
     },
     data () {
