@@ -59,6 +59,9 @@
       }
     },
     watch: {
+      value (value) {
+        this.text = value
+      },
       text (value) {
         if (this.hasInitialised) {
           this.$emit('input', value)

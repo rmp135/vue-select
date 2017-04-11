@@ -92,7 +92,7 @@ describe('vue-select', () => {
     })
   })
   describe('watch', () => {
-    describe('test', () => {
+    describe('text', () => {
       it('should send an \'input\' event when changed after initialisation', (done) => {
         const spy = jasmine.createSpy()
         vm.$emit = spy
@@ -100,6 +100,16 @@ describe('vue-select', () => {
         vm.text = 'new text'
         Vue.nextTick(() => {
           expect(spy).toHaveBeenCalledWith('input', 'new text')
+          done()
+        })
+      })
+    })
+    describe('value', () => {
+      it('should update the text when the value updates', (done) => {
+        vm.hasInitialised = true
+        vm.value = 'new text'
+        Vue.nextTick(() => {
+          expect(vm.text).toBe('new text')
           done()
         })
       })
