@@ -23,7 +23,7 @@ Or via Yarn
 Add as a Vue component.
 
 ```javascript
-require VueSelect from '@rmp135/vue-select'
+import VueSelect from '@rmp135/vue-select'
 
 ...
 data: {
